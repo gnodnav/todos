@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app.todos">
+
+<head>
+  <title><%= title %> with angular</title>
+  <link rel='stylesheet' href='/assets/stylesheets/style.css' />
+  <link rel='stylesheet' href='/bower/angular-xeditable/dist/css/xeditable.min.css' />
+  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />
+  <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js'></script>
+  <script src='/assets/javascripts/main/app.js'></script>
+  <script src='/bower/angular-xeditable/dist/js/xeditable.min.js'></script>
+</head>
+
+<body ng-controller="todoController">
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>{{appName}}<span class="label label-info">{{todoList.length}}</span></h1>
+    </div>
+    <div class="row" id="todo-list">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="checkbox" ng-repeat="x in todoList">
+          <input ng-model="x.isDone" type="checkbox" ng-change="updateTodo(x)">
+          <a href ng-click="deleteTodo(todo)"><i class="fa fa-remove"></i></a>  
+          <a href ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"><i class="fa fa-edit"></i></a>  
+          <span ng-class="{ strike: x.isDone}" editable-text="x.text" e-form="textBtnForm" onaftersave="updateTodo(x)">{{x.text}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="todo-form">
+      <div class="col-sm-8 col-sm-offset-2 text-center">
+        <form action="">
+          <div class="form-group">
+            <input ng-model="todoText" type="text" class="form-control input-md text-center" placeholder="What do you want to do?">
+          </div>
+          <button type='button' class="btn btn-primary btn-md"  ng-click="createTodo()"> Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
